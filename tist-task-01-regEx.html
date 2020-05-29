@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+    <title>Word Finder</title>
+
+<script>
+	
+	function checkLetter() {
+		
+		var sentence = document.myForm.theSentence.value;
+		var letter = document.myForm.theLetter.value;
+		
+		var letCheck = new RegExp("[a-z, A-Z]");
+		var letterCheck = letter.match(letCheck);
+		
+		if (letterCheck == null) {
+			alert("You did not enter one letter.");	
+		} 
+		else {
+			var exp1 = new RegExp("\\b" + letter + "\\w*", 'i');
+			var newWords = sentence.match(exp1);
+				if (newWords == null) {
+					alert("inappropriate message ;)");
+					var newElement = document.createElement("p");
+					newElement.textContent = "There's no match, try again.";
+					document.body.appendChild(newElement);
+				}
+				else {
+					var position = parseInt(sentence.indexOf(newWords));
+					position = position + 1;
+					
+					newElement = document.createElement("p");
+					newElement.textContent = newWords + " at position " + position;
+					document.body.appendChild(newElement);
+				}			
+		}
+		return false;
+	}
+
+</script>
+
+<style>
+
+	h1 {
+		text-align: center;	
+	}
+	
+	form input{
+		padding: 10px;
+		margin: 15px;
+	}
+	
+	h4 {
+		text-align: center;	
+	}
+	
+</style>
+
+</head>
+
+<body>
+
+	<h1>Word Finder</h1>
+
+	<form name="myForm" method="post" onSubmit="return checkLetter()">
+    	
+        <label for="theSentence">Please enter a sentence.</label>
+    	<input type="text" name="inputValue" id="theSentence" /><br>
+        
+        <label for="theLetter">Please enter a letter.</label>
+    	<input type="text" name="inputValue" id="theLetter" maxlength="1"/><br>
+        
+        <input type="submit"/>
+        
+    </form>
+    
+</body>
+</html>
